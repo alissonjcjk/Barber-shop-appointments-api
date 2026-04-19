@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: .
+    command: bash start-dev.sh
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/barber-dev-api
+      DB_USER: barber-dev-api
+      DB_PASSWORD: barber-dev-api
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - .:/barber-dev-api:z
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - barber-dev-net
+
+  db:
+    image: postgres:17.2
+    environment:
+      POSTGRES_USER: barber-dev-api
+      POSTGRES_PASSWORD: barber-dev-api
+      POSTGRES_DB: barber-dev-api
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U barber-dev-api"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - barber-dev-net
+
+networks:
+  barber-dev-net:
+    name: barber-dev-net
+    external: true
+
+volumes:
+  db:

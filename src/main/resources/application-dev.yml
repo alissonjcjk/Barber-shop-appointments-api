@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  devtools:
+    remote:
+      secret: barber-dev-secret
+    restart:
+      trigger-file: trigger.txt
+
+logging:
+  level:
+    br.com.barberdev: DEBUG
+    org.hibernate.SQL: DEBUG

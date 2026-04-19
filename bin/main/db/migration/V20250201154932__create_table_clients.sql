@@ -1,0 +1,8 @@
+CREATE TABLE CLIENTS (
+    id        BIGSERIAL    NOT NULL PRIMARY KEY,
+    name      VARCHAR(150) NOT NULL,
+    email     VARCHAR(150) NOT NULL,
+    phone     BPCHAR(11)   NOT NULL,
+    CONSTRAINT UK_EMAIL UNIQUE (email),
+    CONSTRAINT UK_PHONE UNIQUE (phone)
+);
