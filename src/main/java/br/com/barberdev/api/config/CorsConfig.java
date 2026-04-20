@@ -10,24 +10,41 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
+/**
+ * CORS configuration.
+ *
+ * Allowed origins are injected via the {@code cors.allowed-origins} property,
+ * making it easy to restrict origins per environment:
+ *
+ * <pre>
+ * # application-dev.yml  → libera qualquer origem durante desenvolvimento
+ * cors.allowed-origins: "*"
+ *
+ * # application-prod.yml → restringe à origem real do front-end
+ * cors.allowed-origins: "https://barberdev.com.br"
+ * </pre>
+ */
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
-        var config = new CorsConfiguration();
+    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean(
+            final CorsProperties corsProperties) {
+
+        final var config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedOriginPatterns(corsProperties.getAllowedOrigins());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("Location", "Content-Disposition"));
+        // Cache preflight response for 30 min — reduces unnecessary OPTIONS round-trips
+        config.setMaxAge(1800L);
 
-        var source = new UrlBasedCorsConfigurationSource();
+        final var source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
-        var bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        final var bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-
         return bean;
     }
 }

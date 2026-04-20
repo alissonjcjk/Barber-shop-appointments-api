@@ -14,3 +14,7 @@ logging:
   level:
     br.com.barberdev: DEBUG
     org.hibernate.SQL: DEBUG
+
+# CORS — dev profile: libera todas as origens para facilitar o desenvolvimento local
+cors:
+  allowed-origins: "*"

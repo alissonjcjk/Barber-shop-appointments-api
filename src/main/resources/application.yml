@@ -24,3 +24,10 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+
+# CORS — default: permite qualquer origem.
+# Em produção, sobrescreva este valor no profile 'prod':
+#   cors:
+#     allowed-origins: "https://barberdev.com.br"
+cors:
+  allowed-origins: "*"
