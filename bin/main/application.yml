@@ -31,3 +31,8 @@ server:
 #     allowed-origins: "https://barberdev.com.br"
 cors:
   allowed-origins: "*"
+
+# Timezone da barbearia — usado para calcular os limites do mês no endpoint GET /schedules/{year}/{month}.
+# Garante que agendamentos feitos após 21h (BRT) apareçam no mês correto, e não no seguinte (UTC).
+app:
+  timezone: America/Sao_Paulo
