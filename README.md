@@ -289,7 +289,7 @@ EXPOSE 8080 5005  # 5005 para debug remoto
 
 ## 👤 Autor
 
-Desenvolvido por **Alisson da Silva Bernadino** como parte do projeto **BarberDev** — sistema fullstack de agendamento para barbearias.
+Desenvolvido por **Alisson da Silva Bernadino** como parte do projeto **BarberDev** — sistema fullstack de agendamento para barbearias como exigido no desafio do bootcamp do DIO.
 
 ---
 
