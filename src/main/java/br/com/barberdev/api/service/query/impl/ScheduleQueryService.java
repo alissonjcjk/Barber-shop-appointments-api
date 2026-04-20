@@ -31,7 +31,8 @@ public class ScheduleQueryService implements IScheduleQueryService {
 
     @Override
     public void verifyIfScheduleAvailable(final OffsetDateTime startAt, final OffsetDateTime endAt) {
-        if (repository.existsByStartAtAndEndAt(startAt, endAt)) {
+        // Overlap condition: existingStart < newEnd  AND  existingEnd > newStart
+        if (repository.existsByStartAtLessThanAndEndAtGreaterThan(endAt, startAt)) {
             throw new ScheduleConflictException();
         }
     }

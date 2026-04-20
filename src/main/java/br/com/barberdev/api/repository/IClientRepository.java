@@ -4,6 +4,7 @@ import br.com.barberdev.api.entity.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,4 +21,7 @@ public interface IClientRepository extends JpaRepository<ClientEntity, Long> {
     boolean existsByEmailAndIdNot(final String email, final Long id);
 
     boolean existsByPhoneAndIdNot(final String phone, final Long id);
+
+    /** Returns all clients ordered alphabetically by name (deterministic listing). */
+    List<ClientEntity> findAllByOrderByNameAsc();
 }

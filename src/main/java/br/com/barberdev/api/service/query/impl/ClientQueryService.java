@@ -26,7 +26,7 @@ public class ClientQueryService implements IClientQueryService {
 
     @Override
     public List<ClientEntity> list() {
-        return repository.findAll();
+        return repository.findAllByOrderByNameAsc();
     }
 
     // ── Verificações para CREATE (sem ID) ──────────────────────────────────
